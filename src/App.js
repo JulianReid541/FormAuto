@@ -1,5 +1,5 @@
 import React from "react";
-import Input from 'react-autocomplete-input';
+import SearchBar from 'react-autocomplete-input';
 import 'react-autocomplete-input/dist/bundle.css';
 
 export default class App extends React.Component {
@@ -18,12 +18,15 @@ export default class App extends React.Component {
   }
   
   render() {
-    return (<Input 
-      Component="Input"
-      type="text" 
-      onRequestOptions={this.handleRequestOptions} 
-      options={this.state.options} 
-      />
+    return (
+      <div className="text-center">
+        <SearchBar 
+          Component="Input"
+          type="text" 
+          onRequestOptions={this.handleRequestOptions} 
+          options={this.state.options} 
+        />
+      </div>
     );
   }
 }
