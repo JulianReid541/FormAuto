@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Input from 'react-autocomplete-input';
+import 'react-autocomplete-input/dist/bundle.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+ 
+    this.handleRequestOptions = this.handleRequestOptions.bind(this);
+ 
+    this.state = { options: [] };
+  }
+ 
+  // text in input is "I want @ap"
+  handleRequestOptions(part) {
+    const labels = getLabels(part);
+    this.setState({ options: labels });
+  }
+  
+  render() {
+    return (<Input 
+      Component="Input"
+      type="text" 
+      onRequestOptions={this.handleRequestOptions} 
+      options={this.state.options} 
+      />
+    );
+  }
 }
 
-export default App;
+function getLabels(keyword) {
+	const allLabels = ['NextActions', 'Someday_Actions', 'Costco', 'Alexa'];
+  const result = allLabels
+    .filter(function(x) {
+      return x.toLowerCase().indexOf(keyword.toLowerCase()) > -1;
+    });
+  return result;
+}
+
+
